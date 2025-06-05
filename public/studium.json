@@ -1,0 +1,423 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Studium API - Conecto Sistemas",
+        "description": "Essa API tem como objetivo de aplicar testes para os colaboradores.",
+        "contact": {
+            "email": "wfelix@conecto.com.br"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "description": "API de Homologação",
+            "url": "http://studium.wilsonfelix.com.br/api"
+        },
+        {
+            "description": "API de Produção",
+            "url": "http://studium.wilsonfelix.com.br/api"
+        }
+    ],
+    "paths": {
+        "/customers": {
+            "get": {
+                "summary": "Listar todos os clientes",
+                "tags": [
+                    "Clientes"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de clientes retornada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Lista de clientes"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid",
+                                                        "example": "4a87fec0-3a9c-4583-ba5c-e810b3808a44"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Wilson Felix"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string",
+                                                        "example": "11989701516"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Criar novo cliente",
+                "tags": [
+                    "Clientes"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "name",
+                                    "phone",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cliente criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Lista de clientes"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid",
+                                                        "example": "4a87fec0-3a9c-4583-ba5c-e810b3808a44"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Wilson Felix"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string",
+                                                        "example": "11989701516"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação."
+                    }
+                }
+            }
+        },
+        "/customers/login": {
+            "post": {
+                "summary": "Login do cliente",
+                "tags": [
+                    "Clientes"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "phone",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso."
+                    },
+                    "401": {
+                        "description": "Credenciais inválidas."
+                    }
+                }
+            }
+        },
+        "/customers/{id}": {
+            "put": {
+                "summary": "Atualizar cliente",
+                "tags": [
+                    "Clientes"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cliente atualizado com sucesso."
+                    },
+                    "404": {
+                        "description": "Cliente não encontrado."
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remover cliente",
+                "tags": [
+                    "Clientes"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cliente removido com sucesso."
+                    },
+                    "404": {
+                        "description": "Cliente não encontrado."
+                    }
+                }
+            }
+        },
+        "/doctors": {
+            "get": {
+                "summary": "Listar todos os médicos",
+                "tags": [
+                    "Médicos"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de médicos retornada com sucesso."
+                    }
+                }
+            },
+            "post": {
+                "summary": "Criar novo médico",
+                "tags": [
+                    "Médicos"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "name",
+                                    "specialty"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "specialty": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Médico criado com sucesso."
+                    },
+                    "422": {
+                        "description": "Erro de validação."
+                    }
+                }
+            }
+        },
+        "/appointments": {
+            "get": {
+                "summary": "Listar todos os agendamentos",
+                "tags": [
+                    "Agendamentos"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de agendamentos retornada com sucesso."
+                    }
+                }
+            },
+            "post": {
+                "summary": "Criar novo agendamento",
+                "tags": [
+                    "Agendamentos"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "customer_id",
+                                    "scheduled_at"
+                                ],
+                                "properties": {
+                                    "customer_id": {
+                                        "type": "string"
+                                    },
+                                    "scheduled_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "notes": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Agendamento criado com sucesso."
+                    },
+                    "422": {
+                        "description": "Erro de validação."
+                    }
+                }
+            }
+        },
+        "/appointments/{id}": {
+            "patch": {
+                "summary": "Atualizar agendamento",
+                "tags": [
+                    "Agendamentos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "scheduled_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "notes": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "pending",
+                                            "confirmed",
+                                            "canceled"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Agendamento atualizado com sucesso."
+                    },
+                    "404": {
+                        "description": "Agendamento não encontrado."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "description": "Token de autenticação Bearer"
+            }
+        }
+    },
+    "security": [
+        {
+            "BearerAuth": []
+        }
+    ]
+}
