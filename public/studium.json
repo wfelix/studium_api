@@ -323,10 +323,14 @@
                                 "type": "object",
                                 "required": [
                                     "customer_id",
+                                    "doctor_id",
                                     "scheduled_at"
                                 ],
                                 "properties": {
                                     "customer_id": {
+                                        "type": "string"
+                                    },
+                                    "doctor_id": {
                                         "type": "string"
                                     },
                                     "scheduled_at": {
